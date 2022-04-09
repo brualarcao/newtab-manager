@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <meta name="description" content="Tenha o controle de tudo com poucos cliques!" />
+    <link rel="icon" href="https://api.statvoo.com/favicon/?url=newtab.academy">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;1,300&family=Roboto&display=swap" rel="stylesheet">
+    <title>Gerenciador de Finanças | Newtab</title>
+
+    
+</head>
+<body class="bodyContent">
+    <header>
+        <div class="icon">
+                <img src="./assets/logo.svg" alt="Logo">
+            <h2>Controle Financeiro</h2>
+            <button id="menuImg">
+                <img src="./assets/menu.svg" alt="Menu">
+            </button>
+        </div>
+
+        <div class="optionsDiv">
+            <button id="clearButton" type="button">Limpar dados</button>
+            <button id="addButton" type="button">Cadastro de transações</button>
+        </div>
+    </header>
+    <main>
+        <div class="transactionDiv">
+            
+            <div class="modalDiv">
+                <h4>Nova transação</h4>
+                
+                <div class="transactionFields">
+                    <div class="type">
+                        <label for="">Tipo de transação</label>
+                        <select type="text" name="selectTransaction" id="selectTransaction">
+                            <option key="buy" value="-">Compra</option>
+                            <option key="sell" value="+">Venda</option>
+                        </select>
+                    </div>
+
+                    <div class="name">
+                        <label for="">Nome do item</label>
+                        <input type="text"  name="itemName" id="itemName" placeholder="Descreva a mercadoria">
+                        <div class="errorName">
+                            <span class="errorNameText"></span>
+                            <img src="./assets/error.svg" alt="erro no preenchimento do nome">
+
+                        </div>
+                    </div>
+
+                    <div class="value">
+                        <label for="">Valor</label>
+                        <input type="text" name="value" id="value" data-testid="inputValue" placeholder="R$ 0,00" onInput="currencyMask(event);" >
+                        <div class="errorValue">
+                            <span class="errorValueText"></span>
+                            <img src="./assets/error.svg" alt="erro no preenchimento do valor">
+                        </div>
+                    </div>
+                </div>
+
+                <button id="createTransactionButton" type="button">
+                    Adicionar transação
+                </button>
+
+            </div>
+
+        </div>
+        <div class="transactionsReport">
+                <h4>Extrato de transações</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mercadoria</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reportsTable">
+                    
+                        <tr id="resultTable" >
+                    <td class="total">Total</td>
+                    <td id="totalValue"><p id="totalValueText" ></p></td>
+                        </tr>
+                
+            </tbody>
+                </table>
+                
+            <h2>Nenhuma transação cadastrada.</h2>
+        </div>
+        
+    </main>
+    <div id="menu">
+        <div class="header">
+            <button id="closeMenu">
+                <img name="closeIcon" src="./assets/close.svg" alt="Fechar">
+            </button>
+            
+        </div>
+
+        <div id="content">
+            <div class="clearButtonDiv">
+                <button id="buttonClearMobile" type="button">Limpar dados</button>
+            </div>
+            <div class="createDataDiv">
+                <button id="buttonCreateDataMobile" >Cadastro de transações</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <script>        
+
+
+function currencyMask(event) {
+  const onlyDigits = event.target.value
+    .split("")
+    .filter(s => /\d/.test(s))
+    .join("")
+    .padStart(3, "0")
+  const digitsFloat = onlyDigits.slice(0, -2) + "." + onlyDigits.slice(-2)
+  event.target.value = currency(digitsFloat)
+}
+
+function currency(valor, locale = 'pt-BR', currency = 'BRL') {
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency
+  }).format(valor)
+}
+    </script>
+
+</body>
+</html>
